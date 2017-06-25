@@ -583,6 +583,24 @@ module.exports = {
             });
         });
 
+        it('When enabled, vue component is transformed!', (done) => {
+            const config = createWebpackConfig('www/build', 'dev');
+            config.setPublicPath('/build');
+            config.addEntry('main', './js/CoolVueComponent.vue');
+            config.enableVueLoader();
+
+            testSetup.runWebpack(config, (webpackAssert) => {
+                // check that babel transformed the JSX
+                webpackAssert.assertOutputFileContains(
+                    'main.js',
+                    'Vue.'
+                );
+
+                done();
+            });
+        });
+
+
         it('The output directory is cleaned between builds', (done) => {
             const config = createWebpackConfig('www/build', 'dev');
             config.setPublicPath('/build');

@@ -307,6 +307,32 @@ describe('The config-generator function', () => {
         });
     });
 
+    describe('enableVueLoader() adds the vue-loader', () => {
+        it('without enableVueLoader()', () => {
+            const config = createConfig();
+            config.outputPath = '/tmp/output/public-path';
+            config.publicPath = '/public-path';
+            config.addEntry('main', './main');
+            // do not enable the vue loader
+
+            const actualConfig = configGenerator(config);
+
+            expect(JSON.stringify(actualConfig.module.rules)).to.not.contain('vue-loader');
+        });
+
+        it('enableVueLoader()', () => {
+            const config = createConfig();
+            config.outputPath = '/tmp/output/public-path';
+            config.publicPath = '/public-path';
+            config.addEntry('main', './main');
+            config.enableVueLoader();
+
+            const actualConfig = configGenerator(config);
+
+            expect(JSON.stringify(actualConfig.module.rules)).to.contain('vue-loader');
+        });
+    });
+
     describe('addLoader() adds a custom loader', () => {
         it('addLoader()', () => {
             const config = createConfig();

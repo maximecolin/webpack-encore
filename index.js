@@ -342,6 +342,18 @@ module.exports = {
     },
 
     /**
+     * If enabled, the vue loader is added to loaders:
+     * https://github.com/vuejs/vue-loader
+     *
+     * @returns {exports}
+     */
+    enableVueLoader() {
+        webpackConfig.enableVueLoader();
+
+        return this;
+    },
+
+    /**
      * If enabled, the output directory is emptied between
      * each build (to remove old files).
      *
